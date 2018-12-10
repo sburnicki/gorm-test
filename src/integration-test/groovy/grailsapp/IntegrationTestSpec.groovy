@@ -15,38 +15,36 @@ class IntegrationTestSpec extends Specification {
     def cleanup() {
     }
 
-    void "get book names"() {
+    void "list book names"() {
         given:
         new Book(name: "TestBook").save(flush: true)
 
         when:
-        def names = testService.getBooks()
+        def names = testService.listBooks()
 
         then:
         names == ["TestBook"]
     }
 
-    void "get book names (new transaction)"() {
+    void "list book names (new transaction)"() {
         given:
         new Book(name: "TestBook").save(flush: true)
 
         when:
-        def names = testService.getBooksNewTransaction()
+        def names = testService.listBooksNewTransaction()
 
         then:
         names == ["TestBook"]
     }
 
-    void "get book names (new transaction, saved in new session)"() {
+    void "list book names (new transaction, saved in new session)"() {
         given:
         Book.withNewSession { session ->
             new Book(name: "TestBook").save(flush: true)
-            session.flush()
-            session.clear()
         }
 
         when:
-        def names = testService.getBooksNewTransaction()
+        def names = testService.listBooksNewTransaction()
 
         then:
         names == ["TestBook"]

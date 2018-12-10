@@ -7,11 +7,11 @@ import org.springframework.transaction.annotation.Propagation
 class TestService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    def getBooksNewTransaction() {
+    def listBooksNewTransaction() {
         return Book.list().collect{ it.name }
     }
 
-    def getBooks() {
+    def listBooks() {
         return Book.list().collect{ it.name }
     }
 }
